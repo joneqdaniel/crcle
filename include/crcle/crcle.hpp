@@ -55,7 +55,7 @@ namespace poly
 };
 
 
-template<size_t N, poly::type<N> P, poly::type<N> xor_in = -1, poly::type<N> xor_out = -1, int reflect = poly::ref_none, poly::type<N> chk = poly::inverse, const char** model = nullptr>
+template<size_t N, poly::type<N> P, poly::type<N> xor_in = -1, poly::type<N> xor_out = -1, int reflect = poly::ref_none, poly::type<N> check = poly::inverse, const char** model = nullptr>
 struct crc
 {
 	constexpr static poly::type<N> compute(const uint8_t* buf, size_t len)
@@ -88,13 +88,13 @@ struct crc
 	{
 		return compute((const uint8_t*)str, strlen(str));
 	}
-	constexpr static inline bool check()
+	constexpr static inline bool chk()
 	{
-		poly::type<N> check = check_value();
-		printf("[CHK] %-32s %.8X/%.8X/%.8X/%.8X\n", name(), P, chk, check, magic());
-		return check == chk;
+		poly::type<N> actual = check_value();
+		printf("[CHK] %-32s %.8X/%.8X/%.8X/%.8X\n", name(), P, check, actual, magic());
+		return check == actual;
 	}
-	constexpr static inline bool header()
+	constexpr static inline bool hdr()
 	{
 		printf("[HDR] %-32s %-8s %-8s %-8s %-8s\n", "NAME", "POLY", "CHK_EXP", "CHK_ACT", "MAGIC");
 		return true;
