@@ -91,8 +91,13 @@ struct crc
 	constexpr static inline bool check()
 	{
 		poly::type<N> check = check_value();
-		printf("[CHK] %s %.8X/%.8X/%.8X/%.8X\n", name(), P, chk, check, magic());
+		printf("[CHK] %-32s %.8X/%.8X/%.8X/%.8X\n", name(), P, chk, check, magic());
 		return check == chk;
+	}
+	constexpr static inline bool header()
+	{
+		printf("[HDR] %-32s %-8s %-8s %-8s %-8s\n", "NAME", "POLY", "CHK_EXP", "CHK_ACT", "MAGIC");
+		return true;
 	}
 	constexpr static inline poly::type<N> magic()
 	{

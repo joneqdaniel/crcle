@@ -2,6 +2,7 @@
 
 int main(int argc, char** argv)
 {
+	crc32::zip::header();
 	exit(crc16::  arc::check() &&
 	     crc32::  zip::check() &&
 	     crc32::iscsi::check() &&
