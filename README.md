@@ -88,7 +88,10 @@ int main(int argc, char** argv)
 - [sz - lrzsz](https://www.ohse.de/uwe/software/lrzsz.html)
 
 ## Applications
-
 - [CRC-16/ARC: WAD Rise of The Triad](https://github.com/fabiangreffrath/taradino/blob/main/rott/rt_crc.c)
 - [CRC-32/MPEG2: POD Terminal Reality games](https://github.com/jopadan/termpod/wiki)
+
+## Other
+- [prjxsum - Forsaken ProjectX Checksum](https://github.com/joneqdaniel/prjxsum/)
+- [The On-Line Encyclopedia of Integer Sequences (OEIS)](https://oeis.org/)
 
