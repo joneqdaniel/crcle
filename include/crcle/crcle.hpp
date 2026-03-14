@@ -91,12 +91,12 @@ struct crc
 	constexpr static inline bool chk()
 	{
 		poly::type<N> actual = check_value();
-		printf("[CHK] %-32s %.8X/%.8X/%.8X/%.8X\n", name(), P, check, actual, magic());
+		printf("[CHK] %-32s %.8X %.8X %.8X %.8X\n", name(), P, check, actual, magic());
 		return check == actual;
 	}
 	constexpr static inline bool hdr()
 	{
-		printf("[HDR] %-32s %-8s %-8s %-8s %-8s\n", "NAME", "POLY", "CHK_EXP", "CHK_ACT", "MAGIC");
+		printf("[HDR] %-32s %8s %8s %8s %8s\n", "CRC-BITS/VARIANT", "  POLY  ", "EXPECTED", " ACTUAL ", " MAGIC  ");
 		return true;
 	}
 	constexpr static inline poly::type<N> magic()

@@ -47,6 +47,7 @@ namespace crc32
 int main(int argc, char** argv)
 {
 	exit(crc32::  zip::hdr() &&
+	     puts("")            &&
 	     crc16::  arc::chk() &&
 	     crc32::  zip::chk() &&
 	     crc32::iscsi::chk() &&
@@ -55,13 +56,15 @@ int main(int argc, char** argv)
 	     EXIT_SUCCESS : EXIT_FAILURE);
 }
 ```
+### Output
 ```sh
-[HDR] NAME                             POLY     CHK_EXP  CHK_ACT  MAGIC
-[CHK] CRC-16/ARC                       00008005/0000BB3D/0000BB3D/000041D8
-[CHK] CRC-32/ZIP                       04C11DB7/FC891918/FC891918/E2B9494D
-[CHK] CRC-32/ISCSI                     1EDC6F41/E3069283/E3069283/336A1E2A
-[CHK] CRC-32/MPEG2                     04C11DB7/0376E6E7/0376E6E7/A8ECE62A
-[CHK] CRC-32/CCITT                     04C11DB7/FC891918/FC891918/E2B9494D
+[HDR] CRC-BITS/VARIANT                   POLY   EXPECTED  ACTUAL   MAGIC  
+
+[CHK] CRC-16/ARC                       00008005 0000BB3D 0000BB3D 0000CE32
+[CHK] CRC-32/ZIP                       04C11DB7 FC891918 FC891918 890DA76C
+[CHK] CRC-32/ISCSI                     1EDC6F41 E3069283 E3069283 92E27DD9
+[CHK] CRC-32/MPEG2                     04C11DB7 0376E6E7 0376E6E7 C358080B
+[CHK] CRC-32/CCITT                     04C11DB7 FC891918 FC891918 890DA76C
 ```
 ## CRC variant synonyms
 

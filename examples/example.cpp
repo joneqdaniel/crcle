@@ -3,6 +3,7 @@
 int main(int argc, char** argv)
 {
 	exit(crc32::  zip::hdr() &&
+	     puts("")            &&
 	     crc16::  arc::chk() &&
 	     crc32::  zip::chk() &&
 	     crc32::iscsi::chk() &&
