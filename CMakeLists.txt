@@ -21,7 +21,7 @@ if( CMAKE_GENERATOR_PLATFORM STREQUAL "x64" OR CMAKE_GENERATOR_PLATFORM STREQUAL
 endif()
 
 if( NOT CMAKE_BUILD_OPTLEVEL )
-	set( CMAKE_BUILD_TYPE 3 CACHE STRING "Choose the optimization level of the build" FORCE )
+	set( CMAKE_BUILD_OPTLEVEL 3 CACHE STRING "Choose the optimization level of the build" FORCE )
 endif()
 
 add_compile_options(-march=native)
