@@ -76,6 +76,10 @@ int main(int argc, char** argv)
 - `CRC-32/CKSUM`, `CKSUM`, `CRC-32/POSIX`
 - `CRC-32/JAMCRC`, `JAMCRC`
 
+## Applications
+- [CRC-16/ARC: WAD Rise of The Triad](https://github.com/fabiangreffrath/taradino/blob/main/rott/rt_crc.c)
+- [CRC-32/MPEG2: POD Terminal Reality games](https://github.com/jopadan/termpod/wiki)
+
 ## References
 
 - [Cyclic redundancy check](https://en.wikipedia.org/wiki/Cyclic_redundancy_check)
@@ -86,12 +90,6 @@ int main(int argc, char** argv)
 - [A Collection of 32-bit CRC Tables and Algorithms](http://www.mrob.com/pub/comp/crc-all.html)
 - [Updated makecrc - macutils](https://github.com/jopadan/macutils)
 - [sz - lrzsz](https://www.ohse.de/uwe/software/lrzsz.html)
-
-## Applications
-- [CRC-16/ARC: WAD Rise of The Triad](https://github.com/fabiangreffrath/taradino/blob/main/rott/rt_crc.c)
-- [CRC-32/MPEG2: POD Terminal Reality games](https://github.com/jopadan/termpod/wiki)
-
-## Other
 - [prjxsum - Forsaken ProjectX Checksum](https://github.com/joneqdaniel/prjxsum/)
 - [The On-Line Encyclopedia of Integer Sequences (OEIS)](https://oeis.org/)
 
