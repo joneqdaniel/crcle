@@ -48,13 +48,22 @@ namespace crc32
 
 int main(int argc, char** argv)
 {
-	exit(crc16::  arc::check() &&
+    exit(crc32::zip::header()  &&
+         crc16::  arc::check() &&
 	     crc32::  zip::check() &&
 	     crc32::iscsi::check() &&
 	     crc32::mpeg2::check() &&
 	     crc32::ccitt::check() ? 
 	     EXIT_SUCCESS : EXIT_FAILURE);
 }
+```
+```sh
+[HDR] NAME                             POLY     CHK_EXP  CHK_ACT  MAGIC
+[CHK] CRC-16/ARC                       00008005/0000BB3D/0000BB3D/000041D8
+[CHK] CRC-32/ZIP                       04C11DB7/FC891918/FC891918/E2B9494D
+[CHK] CRC-32/ISCSI                     1EDC6F41/E3069283/E3069283/336A1E2A
+[CHK] CRC-32/MPEG2                     04C11DB7/0376E6E7/0376E6E7/A8ECE62A
+[CHK] CRC-32/CCITT                     04C11DB7/FC891918/FC891918/E2B9494D
 ```
 ## CRC variant synonyms
 
