@@ -75,7 +75,8 @@ int main(int argc, char** argv)
 - `CRC-32/ISO-HDLC`, `CRC-32`, `CRC-32/ADCCP`, `CRC-32/V-42`, `CRC-32/XZ`, `PKZIP`
 - `CRC-32/CKSUM`, `CKSUM`, `CRC-32/POSIX`
 - `CRC-32/JAMCRC`, `JAMCRC`
-
+- `CRC-16/ARC`, `ARC`, `CRC-16`, `CRC-16/LHA`, `CRC-IBM`
+- `CRC-16/XMODEM`, `CRC-16/ACORN`, `CRC-16/LTE`, `CRC-16/V-41-MSB`, `XMODEM`, `ZMODEM`
 ## Applications
 - [CRC-16/ARC: WAD Rise of The Triad](https://github.com/fabiangreffrath/taradino/blob/main/rott/rt_crc.c)
 - [CRC-32/MPEG2: POD Terminal Reality games](https://github.com/jopadan/termpod/wiki)
