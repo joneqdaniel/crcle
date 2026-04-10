@@ -10,7 +10,7 @@ namespace poly
 	const type<32> inverse               = (type<32>)-1;
 	const type<32> neutral               = (type<32>) 0;
 	const type<32> crc32                 = 0x04C11DB7;
-	const type<32> crc32_ieee            = reflect<32>(crc32);
+	const type<32> crc32_ieee            = ref<32>(crc32);
 	const type<32> crc32_iscsi           = 0x1EDC6F41;
 	const type<32> crc32k_koopman_1_3_28 = 0x741B8CD7;
 	const type<32> crc32k_koopman_1_1_30 = 0x32583499;

@@ -9,18 +9,24 @@
 namespace stdx = std::experimental;
 using namespace stdx::parallelism_v2;
 
+#ifdef _MSC_VER
+#define INLINE __force_inline __flatten inline
+#else
+#define INLINE __attribute__((always_inline)) __attribute__((flatten)) inline
+#endif
+
 namespace poly
 {
 	template<size_t N>
 	using type = std::make_unsigned_t<__int_with_sizeof_t<(N>>3)>>;
 
 	template<size_t N>
-	constexpr static type<N> rol(type<N> val, const uint8_t d) { return (val << d | (val >> (N - d))); }
+	constexpr static INLINE type<N> rol(type<N> val, const uint8_t d) { return ((val << d) | (val >> (N - d))); }
 	template<size_t N>
-	constexpr static type<N> ror(type<N> val, const uint8_t d) { return ((val >> d) | (val << (N - d))); }
+	constexpr static INLINE type<N> ror(type<N> val, const uint8_t d) { return ((val >> d) | (val << (N - d))); }
 
 	template<size_t N>
-	constexpr static type<N> reflect(type<N> val)
+	constexpr static INLINE type<N> ref(type<N> val)
 	{
 		type<N> bits = 0;
 		type<N> mask = val;
@@ -47,7 +53,7 @@ namespace poly
 	const type<32> inverse               = (type<32>)-1;
 	const type<32> neutral               = (type<32>) 0;
 	const type<32> crc32                 = 0x04C11DB7;
-	const type<32> crc32_ieee            = reflect<32>(crc32);
+	const type<32> crc32_ieee            = ref<32>(crc32);
 	const type<32> crc32_iscsi           = 0x1EDC6F41;
 	const type<32> crc32k_koopman_1_3_28 = 0x741B8CD7;
 	const type<32> crc32k_koopman_1_1_30 = 0x32583499;
@@ -58,56 +64,60 @@ namespace poly
 template<size_t N, poly::type<N> P, poly::type<N> xor_in = -1, poly::type<N> xor_out = -1, int reflect = poly::ref_none, poly::type<N> check = poly::inverse, const char** model = nullptr>
 struct crc
 {
-	constexpr static poly::type<N> compute(const uint8_t* buf, size_t len)
+	static INLINE poly::type<N> compute(const uint8_t* buf, size_t len)
 	{
-		poly::type<N> msb, crc;
+		poly::type<N> msb;
+		poly::type<N> crc = xor_in;
 
-		crc = xor_in;
 		while(len--)
 		{
-			crc ^= ((poly::type<N>)((reflect & poly::ref_in) ? poly::reflect<8>(*buf++) : *buf++)) << (N - 8);
-			for(int i=0;i<8;i++)
+			crc ^= ((poly::type<N>)((reflect & poly::ref_in) ? poly::ref<8>(*buf++) : *buf++)) << (N - 8);
+
+			for(int i = 0; i < 8; i++)
 			{
-				msb = crc>>(N-1);
-				crc<<=1;
-				crc ^= (0-msb) & P;
+				msb   = crc >> (N - 1);
+				crc <<= 1;
+				crc  ^= (0 - msb) & P;
 			}
 		}
 
-		return (reflect & poly::ref_out) ? poly::reflect<N>(crc)^xor_out : crc^xor_out;
+		if(reflect & poly::ref_out)
+			crc = poly::ref<N>(crc);
+
+		return crc^xor_out;
 	}
 
-	constexpr static inline const char* name()
+	constexpr static INLINE const char* name()
 	{
 		static char str[256] = "";
 		if(sprintf(str,"CRC-%zu/%s", N, *model) == -1)
 			return nullptr;
 		return str;
 	}
-	constexpr static inline poly::type<N> check_value(const char* str = "123456789")
+	constexpr static INLINE poly::type<N> check_value(const char* str = "123456789")
 	{
 		return compute((const uint8_t*)str, strlen(str));
 	}
-	constexpr static inline bool chk()
+	constexpr static INLINE bool chk()
 	{
 		poly::type<N> actual = check_value();
 		printf("[CHK] %-32s %.8X %.8X %.8X %.8X\n", name(), P, check, actual, magic());
 		return check == actual;
 	}
-	constexpr static inline bool hdr()
+	constexpr static INLINE bool hdr()
 	{
 		printf("[HDR] %-32s %8s %8s %8s %8s\n", "CRC-BITS/VARIANT", "  POLY  ", "EXPECTED", " ACTUAL ", " MAGIC  ");
 		return true;
 	}
-	constexpr static inline poly::type<N> magic()
+	constexpr static INLINE poly::type<N> magic()
 	{
 		poly::type<N> magic  = xor_out;
 		if(reflect & poly::ref_out)
-			magic = poly::reflect<N>(magic);
+			magic = poly::ref<N>(magic);
 		crc<N, P, 0, 0, reflect, 0> magic_poly;
 		magic = magic_poly.compute((const uint8_t*)&magic, N);
 		if(reflect & poly::ref_in)
-			magic = poly::reflect<N>(magic);
+			magic = poly::ref<N>(magic);
 		return magic;
 	}
 };
